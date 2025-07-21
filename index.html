@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,7 +15,7 @@
     label {
       font-weight: bold;
     }
-    input {
+    input, select {
       width: 100%;
       font-size: 1.2rem;
       padding: 0.5rem;
@@ -42,18 +41,24 @@
 <body>
   <h2>Stormsaver Workshop Stock Form</h2>
   <form action="https://script.google.com/macros/s/AKfycbzuu4-5xZs-gQ2y7kU_f1KRMWtkO-EmKf0jq0FmcMSxitkexGTc0M7KZnEh-5lAvE7gNA/exec" method="GET">
-    <label for="Stormsaver ID">Stormsaver ID:</label><br>
-    <input type="text" name="Stormsaver ID" id="Stormsaver ID" readonly><br><br>
+    <label for="itemID">Stormsaver ID:</label><br>
+    <input type="text" name="itemID" id="itemID" readonly><br>
 
-    <label for="qty">Quantity Taken:</label><br>
-    <input type="number" name="qty" required><br><br>
+    <label for="qty">Quantity:</label><br>
+    <input type="number" name="qty" id="qty" required><br>
 
-    <input type="submit" value="Update Stock">
+    <label for="action">Action:</label><br>
+    <select name="action" id="action">
+      <option value="take">Take from Stock</option>
+      <option value="put">Restock</option>
+    </select><br>
+
+    <input type="submit" value="Submit">
   </form>
 
   <script>
     const urlParams = new URLSearchParams(window.location.search);
-    const itemID = urlParams.get("itemID");
+    const itemID = urlParams.get("id");
     if (itemID) document.getElementById("itemID").value = itemID;
   </script>
 </body>
