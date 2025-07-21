@@ -40,14 +40,14 @@
 </head>
 <body>
   <h2>Stormsaver Workshop Stock Form</h2>
-  <form action="https://script.google.com/macros/s/AKfycbyINtf4ez5keSdiG-TTAl2sjxXA94VTbpI2906IZYqJQtbhbvayd_-kLOF0uSeaoIlvxQ/exec" method="GET">
-    <label for="itemID">Stormsaver ID:</label><br>
+  <form id="stock-form" method="GET">
+    <label for="itemID">Stormsaver ID:</label>
     <input type="text" name="itemID" id="itemID" readonly><br>
 
-    <label for="qty">Quantity:</label><br>
+    <label for="qty">Quantity:</label>
     <input type="number" name="qty" id="qty" required><br>
 
-    <label for="action">Action:</label><br>
+    <label for="action">Action:</label>
     <select name="action" id="action">
       <option value="take">Take from Stock</option>
       <option value="put">Restock</option>
@@ -57,9 +57,19 @@
   </form>
 
   <script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const itemID = urlParams.get("id");
+    const itemID = new URLSearchParams(window.location.search).get("id");
     if (itemID) document.getElementById("itemID").value = itemID;
+
+    document.getElementById("stock-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const id = document.getElementById("itemID").value;
+      const qty = document.getElementById("qty").value;
+      const action = document.getElementById("action").value;
+
+      const url = `https://script.google.com/macros/s/YOUR_DEPLOYED_SCRIPT_ID_HERE/exec?itemID=${id}&qty=${qty}&action=${action}`;
+      window.location.href = url;
+    });
   </script>
 </body>
 </html>
+
